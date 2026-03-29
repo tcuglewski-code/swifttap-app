@@ -10,8 +10,23 @@ import {
   CheckCircle,
   XCircle,
   Clock,
-  RefreshCw
+  RefreshCw,
+  Download,
+  FileText,
+  FileSpreadsheet,
+  Mail,
+  RotateCcw,
+  X,
+  AlertTriangle
 } from "lucide-react"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog"
 
 interface Transaction {
   id: string
@@ -20,6 +35,7 @@ interface Transaction {
   status: string
   description: string | null
   customerEmail: string | null
+  stripePaymentId: string | null
   createdAt: string
   qrCode: { id: string; name: string } | null
 }
@@ -35,12 +51,20 @@ export default function TransactionsPage() {
   const [transactions, setTransactions] = useState<Transaction[]>([])
   const [pagination, setPagination] = useState<Pagination | null>(null)
   const [loading, setLoading] = useState(true)
+  const [exporting, setExporting] = useState(false)
   
   // Filters
   const [page, setPage] = useState(1)
   const [status, setStatus] = useState("")
   const [dateFrom, setDateFrom] = useState("")
   const [dateTo, setDateTo] = useState("")
+
+  // Modals
+  const [selectedTx, setSelectedTx] = useState<Transaction | null>(null)
+  const [showRefundDialog, setShowRefundDialog] = useState(false)
+  const [refunding, setRefunding] = useState(false)
+  const [sendingReceipt, setSendingReceipt] = useState(false)
+  const [actionMessage, setActionMessage] = useState<{type: 'success' | 'error', text: string} | null>(null)
 
   useEffect(() => {
     fetchTransactions()
@@ -66,6 +90,86 @@ export default function TransactionsPage() {
       console.error("Error fetching transactions:", e)
     } finally {
       setLoading(false)
+    }
+  }
+
+  async function handleExport(format: 'pdf' | 'csv') {
+    setExporting(true)
+    try {
+      const params = new URLSearchParams()
+      params.set("format", format)
+      if (dateFrom) params.set("dateFrom", dateFrom)
+      if (dateTo) params.set("dateTo", dateTo)
+
+      const res = await fetch(`/api/transactions/export?${params}`)
+      if (res.ok) {
+        const blob = await res.blob()
+        const contentDisposition = res.headers.get('Content-Disposition')
+        const filename = contentDisposition?.match(/filename="(.+)"/)?.[1] || `export.${format}`
+        
+        const url = window.URL.createObjectURL(blob)
+        const a = document.createElement('a')
+        a.href = url
+        a.download = filename
+        document.body.appendChild(a)
+        a.click()
+        window.URL.revokeObjectURL(url)
+        a.remove()
+      }
+    } catch (e) {
+      console.error("Export error:", e)
+    } finally {
+      setExporting(false)
+    }
+  }
+
+  async function handleRefund() {
+    if (!selectedTx) return
+    setRefunding(true)
+    setActionMessage(null)
+
+    try {
+      const res = await fetch(`/api/payments/${selectedTx.id}/refund`, {
+        method: 'POST',
+      })
+      const data = await res.json()
+
+      if (res.ok) {
+        setActionMessage({ type: 'success', text: 'Zahlung wurde erfolgreich erstattet' })
+        setShowRefundDialog(false)
+        fetchTransactions()
+      } else {
+        setActionMessage({ type: 'error', text: data.details || data.error || 'Erstattung fehlgeschlagen' })
+      }
+    } catch (e) {
+      setActionMessage({ type: 'error', text: 'Ein Fehler ist aufgetreten' })
+    } finally {
+      setRefunding(false)
+    }
+  }
+
+  async function handleSendReceipt() {
+    if (!selectedTx) return
+    setSendingReceipt(true)
+    setActionMessage(null)
+
+    try {
+      const res = await fetch('/api/email/receipt', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ paymentId: selectedTx.id }),
+      })
+      const data = await res.json()
+
+      if (res.ok && data.success) {
+        setActionMessage({ type: 'success', text: data.message || 'Quittung gesendet' })
+      } else {
+        setActionMessage({ type: 'error', text: data.message || data.error || 'Senden fehlgeschlagen' })
+      }
+    } catch (e) {
+      setActionMessage({ type: 'error', text: 'Ein Fehler ist aufgetreten' })
+    } finally {
+      setSendingReceipt(false)
     }
   }
 
@@ -99,22 +203,66 @@ export default function TransactionsPage() {
     }
   }
 
-  function getStatusLabel(status: string): string {
-    switch (status) {
-      case "succeeded": return "Erfolgreich"
-      case "failed": return "Fehlgeschlagen"
-      case "refunded": return "Erstattet"
-      case "pending": return "Ausstehend"
-      default: return status
+  function getStatusBadge(status: string) {
+    const badges: Record<string, { bg: string, text: string, label: string }> = {
+      succeeded: { bg: 'bg-green-100', text: 'text-green-700', label: 'Erfolgreich' },
+      failed: { bg: 'bg-red-100', text: 'text-red-700', label: 'Fehlgeschlagen' },
+      refunded: { bg: 'bg-blue-100', text: 'text-blue-700', label: 'Rückerstattet' },
+      pending: { bg: 'bg-yellow-100', text: 'text-yellow-700', label: 'Ausstehend' },
     }
+    const badge = badges[status] || badges.pending
+    return (
+      <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium ${badge.bg} ${badge.text}`}>
+        {getStatusIcon(status)}
+        {badge.label}
+      </span>
+    )
   }
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-gray-900 mb-2">Transaktionen</h1>
-      <p className="text-gray-600 mb-8">
-        Übersicht aller Zahlungen.
-      </p>
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
+        <div>
+          <h1 className="text-2xl font-bold text-gray-900 mb-1">Transaktionen</h1>
+          <p className="text-gray-600">
+            Übersicht aller Zahlungen.
+          </p>
+        </div>
+        
+        {/* Export Buttons */}
+        <div className="flex gap-2 mt-4 md:mt-0">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => handleExport('csv')}
+            disabled={exporting}
+          >
+            {exporting ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <FileSpreadsheet className="w-4 h-4 mr-2" />}
+            CSV
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => handleExport('pdf')}
+            disabled={exporting}
+          >
+            {exporting ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <FileText className="w-4 h-4 mr-2" />}
+            PDF
+          </Button>
+        </div>
+      </div>
+
+      {/* Action Message */}
+      {actionMessage && (
+        <div className={`mb-4 p-3 rounded-lg flex items-center justify-between ${
+          actionMessage.type === 'success' ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'
+        }`}>
+          <span>{actionMessage.text}</span>
+          <button onClick={() => setActionMessage(null)} className="hover:opacity-75">
+            <X className="w-4 h-4" />
+          </button>
+        </div>
+      )}
 
       {/* Filters */}
       <div className="bg-white rounded-xl shadow-sm border p-4 mb-6">
@@ -130,7 +278,7 @@ export default function TransactionsPage() {
               <option value="succeeded">Erfolgreich</option>
               <option value="pending">Ausstehend</option>
               <option value="failed">Fehlgeschlagen</option>
-              <option value="refunded">Erstattet</option>
+              <option value="refunded">Rückerstattet</option>
             </select>
           </div>
           <div>
@@ -186,19 +334,19 @@ export default function TransactionsPage() {
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">QR Code</th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Kunde</th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Datum</th>
+                    <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Aktionen</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200">
                   {transactions.map((tx) => (
                     <tr key={tx.id} className="hover:bg-gray-50">
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="flex items-center gap-2">
-                          {getStatusIcon(tx.status)}
-                          <span className="text-sm">{getStatusLabel(tx.status)}</span>
-                        </div>
+                        {getStatusBadge(tx.status)}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <span className="font-medium">{formatAmount(tx.amount, tx.currency)}</span>
+                        <span className={`font-semibold ${tx.status === 'refunded' ? 'text-gray-400 line-through' : ''}`}>
+                          {formatAmount(tx.amount, tx.currency)}
+                        </span>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
                         {tx.qrCode?.name || "-"}
@@ -208,6 +356,38 @@ export default function TransactionsPage() {
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
                         {formatDate(tx.createdAt)}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-right">
+                        <div className="flex items-center justify-end gap-2">
+                          {tx.customerEmail && tx.status === 'succeeded' && (
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => {
+                                setSelectedTx(tx)
+                                handleSendReceipt()
+                              }}
+                              disabled={sendingReceipt}
+                              title="Quittung senden"
+                            >
+                              <Mail className="w-4 h-4" />
+                            </Button>
+                          )}
+                          {tx.status === 'succeeded' && tx.stripePaymentId && (
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => {
+                                setSelectedTx(tx)
+                                setShowRefundDialog(true)
+                              }}
+                              className="text-orange-600 hover:text-orange-700 hover:bg-orange-50"
+                              title="Erstatten"
+                            >
+                              <RotateCcw className="w-4 h-4" />
+                            </Button>
+                          )}
+                        </div>
                       </td>
                     </tr>
                   ))}
@@ -245,6 +425,62 @@ export default function TransactionsPage() {
           </>
         )}
       </div>
+
+      {/* Refund Confirmation Dialog */}
+      <Dialog open={showRefundDialog} onOpenChange={setShowRefundDialog}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <AlertTriangle className="w-5 h-5 text-orange-500" />
+              Zahlung erstatten
+            </DialogTitle>
+            <DialogDescription>
+              Sind Sie sicher, dass Sie diese Zahlung erstatten möchten? Diese Aktion kann nicht rückgängig gemacht werden.
+            </DialogDescription>
+          </DialogHeader>
+          
+          {selectedTx && (
+            <div className="bg-gray-50 rounded-lg p-4 my-4">
+              <div className="grid grid-cols-2 gap-4 text-sm">
+                <div>
+                  <p className="text-gray-500">Betrag</p>
+                  <p className="font-semibold">{formatAmount(selectedTx.amount, selectedTx.currency)}</p>
+                </div>
+                <div>
+                  <p className="text-gray-500">Datum</p>
+                  <p className="font-semibold">{formatDate(selectedTx.createdAt)}</p>
+                </div>
+                {selectedTx.customerEmail && (
+                  <div className="col-span-2">
+                    <p className="text-gray-500">Kunde</p>
+                    <p className="font-semibold">{selectedTx.customerEmail}</p>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setShowRefundDialog(false)} disabled={refunding}>
+              Abbrechen
+            </Button>
+            <Button 
+              onClick={handleRefund} 
+              disabled={refunding}
+              className="bg-orange-600 hover:bg-orange-700"
+            >
+              {refunding ? (
+                <>
+                  <Loader2 className="w-4 h-4 animate-spin mr-2" />
+                  Erstatte...
+                </>
+              ) : (
+                'Erstatten'
+              )}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }

@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server"
 import { headers } from "next/headers"
 import { stripe } from "@/lib/stripe"
 import { prisma } from "@/lib/prisma"
+import { resend, isResendConfigured } from "@/lib/resend"
+import { generateReceiptHtml, generateReceiptSubject } from "@/lib/email-templates"
 import Stripe from "stripe"
 
 export async function POST(req: NextRequest) {
@@ -66,6 +68,9 @@ async function handlePaymentSucceeded(paymentIntent: Stripe.PaymentIntent) {
   // Find and update payment
   const payment = await prisma.payment.findUnique({
     where: { stripePaymentId },
+    include: {
+      merchant: true
+    }
   })
 
   if (payment) {
@@ -77,6 +82,36 @@ async function handlePaymentSucceeded(paymentIntent: Stripe.PaymentIntent) {
       },
     })
     console.log(`Payment ${payment.id} marked as succeeded`)
+
+    // Send receipt email if configured and customer email exists
+    if (isResendConfigured() && resend && payment.customerEmail) {
+      try {
+        const merchantName = payment.merchant.businessName
+        const html = generateReceiptHtml({
+          merchantName,
+          amount: payment.amount,
+          currency: payment.currency,
+          transactionId: payment.id,
+          customerEmail: payment.customerEmail,
+          date: new Date(),
+          description: payment.description,
+        })
+
+        await resend.emails.send({
+          from: 'SwiftTap <noreply@swifttap.app>',
+          to: payment.customerEmail,
+          subject: generateReceiptSubject(merchantName),
+          html,
+        })
+
+        console.log(`Receipt email sent to ${payment.customerEmail}`)
+      } catch (emailError) {
+        // Don't fail the webhook if email fails
+        console.error('Failed to send receipt email:', emailError)
+      }
+    } else {
+      console.log('Resend not configured or no customer email - skipping receipt email')
+    }
   } else {
     console.log(`Payment with stripePaymentId ${stripePaymentId} not found`)
   }
