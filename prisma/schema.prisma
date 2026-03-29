@@ -1,0 +1,54 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model SwiftTapUser {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  password      String
+  name          String?
+  businessName  String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  
+  paymentLinks  SwiftTapPaymentLink[]
+  transactions  SwiftTapTransaction[]
+
+  @@map("swifttap_users")
+}
+
+model SwiftTapPaymentLink {
+  id          String   @id @default(cuid())
+  userId      String
+  amount      Float?   // null = variable amount
+  description String?
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  
+  user         SwiftTapUser          @relation(fields: [userId], references: [id])
+  transactions SwiftTapTransaction[]
+
+  @@map("swifttap_payment_links")
+}
+
+model SwiftTapTransaction {
+  id              String   @id @default(cuid())
+  paymentLinkId   String
+  userId          String
+  amount          Float
+  currency        String   @default("eur")
+  status          String   // pending, succeeded, failed
+  stripePaymentId String?
+  customerEmail   String?
+  createdAt       DateTime @default(now())
+  
+  paymentLink SwiftTapPaymentLink @relation(fields: [paymentLinkId], references: [id])
+  user        SwiftTapUser        @relation(fields: [userId], references: [id])
+
+  @@map("swifttap_transactions")
+}

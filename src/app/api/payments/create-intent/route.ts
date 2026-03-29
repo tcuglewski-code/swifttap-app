@@ -1,0 +1,39 @@
+import { NextRequest, NextResponse } from "next/server"
+import { stripe } from "@/lib/stripe"
+
+export async function POST(req: NextRequest) {
+  try {
+    const { amount, email, description } = await req.json()
+
+    if (!amount || amount < 50) {
+      return NextResponse.json(
+        { error: "Mindestbetrag ist 0,50 €" },
+        { status: 400 }
+      )
+    }
+
+    // Create a PaymentIntent with the specified amount
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount: Math.round(amount), // amount in cents
+      currency: "eur",
+      receipt_email: email,
+      description: description || "SwiftTap Zahlung",
+      automatic_payment_methods: {
+        enabled: true,
+      },
+      metadata: {
+        source: "swifttap",
+      },
+    })
+
+    return NextResponse.json({
+      clientSecret: paymentIntent.client_secret,
+    })
+  } catch (error: any) {
+    console.error("Payment Intent Error:", error)
+    return NextResponse.json(
+      { error: error.message || "Zahlung konnte nicht initialisiert werden" },
+      { status: 500 }
+    )
+  }
+}
