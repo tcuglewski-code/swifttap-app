@@ -3,6 +3,13 @@ import { stripe } from "@/lib/stripe"
 
 export async function POST(req: NextRequest) {
   try {
+    if (!stripe) {
+      return NextResponse.json(
+        { error: "Stripe ist noch nicht konfiguriert. Bitte STRIPE_SECRET_KEY setzen." },
+        { status: 503 }
+      )
+    }
+
     const { amount, email, description } = await req.json()
 
     if (!amount || amount < 50) {
