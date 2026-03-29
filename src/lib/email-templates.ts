@@ -1,5 +1,5 @@
 // ============================================================================
-// SwiftTap Email Templates
+// Zipayo Email Templates
 // Branding: Primary #1A2744, Accent #00C9B1
 // ============================================================================
 
@@ -58,7 +58,7 @@ function emailWrapper(content: string): string {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SwiftTap</title>
+  <title>Zipayo</title>
 </head>
 <body style="margin: 0; padding: 0; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background-color: #f5f5f5;">
   <table cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px; margin: 0 auto; padding: 40px 20px;">
@@ -74,7 +74,7 @@ function emailWrapper(content: string): string {
                     <span style="color: #ffffff; font-size: 24px;">⚡</span>
                   </td>
                   <td style="padding-left: 12px;">
-                    <span style="color: #ffffff; font-size: 24px; font-weight: 700;">SwiftTap</span>
+                    <span style="color: #ffffff; font-size: 24px; font-weight: 700;">Zipayo</span>
                   </td>
                 </tr>
               </table>
@@ -87,8 +87,8 @@ function emailWrapper(content: string): string {
           <!-- Footer -->
           <tr>
             <td style="background-color: #f9fafb; padding: 24px 32px; text-align: center; border-top: 1px solid #e5e7eb;">
-              <p style="margin: 0 0 8px; color: #6b7280; font-size: 12px;">Diese E-Mail wurde automatisch von SwiftTap generiert.</p>
-              <p style="margin: 0; color: #9ca3af; font-size: 12px;">© ${new Date().getFullYear()} SwiftTap. Alle Rechte vorbehalten.</p>
+              <p style="margin: 0 0 8px; color: #6b7280; font-size: 12px;">Diese E-Mail wurde automatisch von Zipayo generiert.</p>
+              <p style="margin: 0; color: #9ca3af; font-size: 12px;">© ${new Date().getFullYear()} Zipayo. Alle Rechte vorbehalten.</p>
             </td>
           </tr>
         </table>
@@ -206,7 +206,7 @@ export function generateReceiptHtml(data: ReceiptEmailData): string {
 }
 
 export function generateReceiptSubject(merchantName: string): string {
-  return `Ihre Zahlung bei ${merchantName} war erfolgreich — SwiftTap`
+  return `Ihre Zahlung bei ${merchantName} war erfolgreich — Zipayo`
 }
 
 // ============================================================================
@@ -227,7 +227,7 @@ export function generateWelcomeHtml(data: WelcomeEmailData): string {
     <!-- Title -->
     <tr>
       <td style="padding: 0 32px 8px; text-align: center;">
-        <h1 style="margin: 0; color: #1A2744; font-size: 24px; font-weight: 700;">Willkommen bei SwiftTap!</h1>
+        <h1 style="margin: 0; color: #1A2744; font-size: 24px; font-weight: 700;">Willkommen bei Zipayo!</h1>
       </td>
     </tr>
     
@@ -297,7 +297,7 @@ export function generateWelcomeHtml(data: WelcomeEmailData): string {
     <!-- CTA Button -->
     <tr>
       <td style="padding: 0 32px 32px; text-align: center;">
-        ${primaryButton('Zum Dashboard', 'https://swifttap-app.vercel.app/dashboard')}
+        ${primaryButton('Zum Dashboard', 'https://zipayo-app.vercel.app/dashboard')}
       </td>
     </tr>
     
@@ -306,7 +306,7 @@ export function generateWelcomeHtml(data: WelcomeEmailData): string {
       <td style="padding: 0 32px 32px; text-align: center;">
         <p style="margin: 0; color: #6b7280; font-size: 14px;">
           Fragen? Antworten Sie einfach auf diese E-Mail oder schreiben Sie uns an 
-          <a href="mailto:support@swifttap.de" style="color: #00C9B1;">support@swifttap.de</a>
+          <a href="mailto:support@zipayo.de" style="color: #00C9B1;">support@zipayo.de</a>
         </p>
       </td>
     </tr>
@@ -315,7 +315,7 @@ export function generateWelcomeHtml(data: WelcomeEmailData): string {
 }
 
 export function generateWelcomeSubject(): string {
-  return 'Willkommen bei SwiftTap! 🎉 Ihre ersten Schritte'
+  return 'Willkommen bei Zipayo! 🎉 Ihre ersten Schritte'
 }
 
 // ============================================================================
@@ -345,7 +345,7 @@ export function generateStripeConnectReminderHtml(data: StripeConnectReminderDat
       <td style="padding: 0 32px 32px; text-align: center;">
         <p style="margin: 0; color: #6b7280; font-size: 16px;">
           Hallo ${data.merchantName},<br><br>
-          um Zahlungen über SwiftTap zu empfangen, müssen Sie Ihr Stripe-Konto verbinden. 
+          um Zahlungen über Zipayo zu empfangen, müssen Sie Ihr Stripe-Konto verbinden. 
           Dies dauert nur wenige Minuten.
         </p>
       </td>
@@ -389,7 +389,7 @@ export function generateStripeConnectReminderHtml(data: StripeConnectReminderDat
 }
 
 export function generateStripeConnectReminderSubject(): string {
-  return 'Noch ein Schritt: Verbinden Sie Ihr Stripe-Konto — SwiftTap'
+  return 'Noch ein Schritt: Verbinden Sie Ihr Stripe-Konto — Zipayo'
 }
 
 // ============================================================================
@@ -404,7 +404,7 @@ export function generateDailyDigestHtml(data: DailyDigestData): string {
 
   const tips = [
     'Tipp: Platzieren Sie Ihren QR-Code an gut sichtbarer Stelle für mehr Zahlungen.',
-    'Tipp: Nutzen Sie die API, um SwiftTap in Ihre bestehende Software zu integrieren.',
+    'Tipp: Nutzen Sie die API, um Zipayo in Ihre bestehende Software zu integrieren.',
     'Tipp: Laden Sie Teammitglieder ein, um den Überblick über Transaktionen zu behalten.',
     'Tipp: Pro-Kunden können ihr eigenes Branding auf Zahlungsseiten nutzen.',
     'Tipp: Aktivieren Sie E-Mail-Benachrichtigungen für jede Zahlung in den Einstellungen.',
@@ -487,7 +487,7 @@ export function generateDailyDigestHtml(data: DailyDigestData): string {
     <!-- CTA Button -->
     <tr>
       <td style="padding: 0 32px 32px; text-align: center;">
-        ${primaryButton('Dashboard öffnen', 'https://swifttap-app.vercel.app/dashboard')}
+        ${primaryButton('Dashboard öffnen', 'https://zipayo-app.vercel.app/dashboard')}
       </td>
     </tr>
   `
@@ -499,7 +499,7 @@ export function generateDailyDigestSubject(revenue: number, currency: string): s
     style: 'currency',
     currency: currency.toUpperCase(),
   }).format(revenue / 100)
-  return `📊 Ihr Tagesbericht: ${formatted} Umsatz — SwiftTap`
+  return `📊 Ihr Tagesbericht: ${formatted} Umsatz — Zipayo`
 }
 
 // ============================================================================
@@ -528,7 +528,7 @@ export function generatePasswordResetHtml(data: PasswordResetData): string {
     <tr>
       <td style="padding: 0 32px 32px; text-align: center;">
         <p style="margin: 0; color: #6b7280; font-size: 16px;">
-          Sie haben angefordert, Ihr Passwort für Ihr SwiftTap-Konto zurückzusetzen. 
+          Sie haben angefordert, Ihr Passwort für Ihr Zipayo-Konto zurückzusetzen. 
           Klicken Sie auf den Button unten, um ein neues Passwort zu erstellen.
         </p>
       </td>
@@ -570,7 +570,7 @@ export function generatePasswordResetHtml(data: PasswordResetData): string {
 }
 
 export function generatePasswordResetSubject(): string {
-  return 'Passwort zurücksetzen — SwiftTap'
+  return 'Passwort zurücksetzen — Zipayo'
 }
 
 // ============================================================================
@@ -591,7 +591,7 @@ export function generateTeamInvitationHtml(data: TeamInvitationData): string {
     <!-- Title -->
     <tr>
       <td style="padding: 0 32px 8px; text-align: center;">
-        <h1 style="margin: 0; color: #1A2744; font-size: 24px; font-weight: 700;">Einladung zu SwiftTap</h1>
+        <h1 style="margin: 0; color: #1A2744; font-size: 24px; font-weight: 700;">Einladung zu Zipayo</h1>
       </td>
     </tr>
     
@@ -600,7 +600,7 @@ export function generateTeamInvitationHtml(data: TeamInvitationData): string {
       <td style="padding: 0 32px 32px; text-align: center;">
         <p style="margin: 0; color: #6b7280; font-size: 16px;">
           <strong style="color: #1A2744;">${data.inviterName}</strong> lädt Sie ein, dem Team von 
-          <strong style="color: #1A2744;">${data.merchantName}</strong> auf SwiftTap beizutreten.
+          <strong style="color: #1A2744;">${data.merchantName}</strong> auf Zipayo beizutreten.
         </p>
       </td>
     </tr>
@@ -657,5 +657,5 @@ export function generateTeamInvitationHtml(data: TeamInvitationData): string {
 }
 
 export function generateTeamInvitationSubject(inviterName: string, merchantName: string): string {
-  return `${inviterName} lädt Sie ein zu ${merchantName} auf SwiftTap`
+  return `${inviterName} lädt Sie ein zu ${merchantName} auf Zipayo`
 }

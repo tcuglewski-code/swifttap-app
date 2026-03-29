@@ -80,7 +80,7 @@ export default function DashboardLayout({
             <div className="w-8 h-8 bg-accent rounded-lg flex items-center justify-center">
               <Smartphone className="w-5 h-5 text-white" />
             </div>
-            <span className="text-xl font-bold text-white">SwiftTap</span>
+            <span className="text-xl font-bold text-white">Zipayo</span>
             <button
               className="ml-auto lg:hidden text-white"
               onClick={() => setSidebarOpen(false)}

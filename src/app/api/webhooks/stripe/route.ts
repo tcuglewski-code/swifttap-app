@@ -110,7 +110,7 @@ async function handlePaymentSucceeded(paymentIntent: Stripe.PaymentIntent) {
         })
 
         await resend.emails.send({
-          from: 'SwiftTap <noreply@swifttap.app>',
+          from: 'Zipayo <noreply@zipayo.app>',
           to: payment.customerEmail,
           subject: generateReceiptSubject(merchantName),
           html,

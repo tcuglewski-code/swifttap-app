@@ -61,7 +61,7 @@ export default function QRGeneratorPage() {
     if (!qrDataUrl) return
     
     const link = document.createElement("a")
-    link.download = `swifttap-qr-${Date.now()}.png`
+    link.download = `zipayo-qr-${Date.now()}.png`
     link.href = qrDataUrl
     link.click()
   }

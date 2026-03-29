@@ -13,8 +13,8 @@ export async function isAdmin(): Promise<boolean> {
   
   if (!user) return false
   
-  // Admin wenn role="admin" ODER email=admin@swifttap.de
-  return user.role === "admin" || user.email === "admin@swifttap.de"
+  // Admin wenn role="admin" ODER email=admin@zipayo.de
+  return user.role === "admin" || user.email === "admin@zipayo.de"
 }
 
 export async function requireAdmin() {

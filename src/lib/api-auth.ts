@@ -7,7 +7,7 @@ export interface ApiKeyAuth {
 }
 
 export async function validateApiKey(request: NextRequest): Promise<ApiKeyAuth | null> {
-  const apiKey = request.headers.get("X-SwiftTap-Key")
+  const apiKey = request.headers.get("X-Zipayo-Key")
   
   if (!apiKey) {
     return null

@@ -461,7 +461,7 @@ export default function PaymentPage({ params }: { params: { id: string } }) {
 
   const amount = amountParam ? parseInt(amountParam, 10) : null
   const isVariable = !amount
-  const merchantName = merchantParam || "SwiftTap Händler"
+  const merchantName = merchantParam || "Zipayo Händler"
 
   // Check if Stripe is configured
   if (!stripePromise) {
@@ -491,11 +491,11 @@ export default function PaymentPage({ params }: { params: { id: string } }) {
             <div className="w-10 h-10 bg-[#00C9B1] rounded-lg flex items-center justify-center shadow-lg shadow-[#00C9B1]/25">
               <Smartphone className="w-6 h-6 text-white" />
             </div>
-            <span className="text-xl font-bold text-[#1A2744]">SwiftTap</span>
+            <span className="text-xl font-bold text-[#1A2744]">Zipayo</span>
           </div>
           <div className="flex items-center justify-center gap-1.5 text-xs text-gray-500">
             <Lock className="w-3 h-3" />
-            <span>Gesichert durch SwiftTap</span>
+            <span>Gesichert durch Zipayo</span>
           </div>
         </CardHeader>
 

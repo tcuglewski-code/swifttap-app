@@ -26,12 +26,12 @@ export async function POST(req: NextRequest) {
       amount: Math.round(amount), // amount in cents
       currency: "eur",
       receipt_email: email,
-      description: description || "SwiftTap Zahlung",
+      description: description || "Zipayo Zahlung",
       automatic_payment_methods: {
         enabled: true,
       },
       metadata: {
-        source: "swifttap",
+        source: "zipayo",
       },
     })
 

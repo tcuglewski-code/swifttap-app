@@ -1,11 +1,11 @@
 // ============================================================================
-// SwiftTap CORS Configuration
+// Zipayo CORS Configuration
 // ============================================================================
 
 const ALLOWED_ORIGINS = [
-  'https://swifttap-app.vercel.app',
-  'https://swifttap.de',
-  'https://www.swifttap.de',
+  'https://zipayo-app.vercel.app',
+  'https://zipayo.de',
+  'https://www.zipayo.de',
 ]
 
 // Allow localhost in development

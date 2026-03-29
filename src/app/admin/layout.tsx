@@ -52,7 +52,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           <div className="flex justify-between h-16">
             <div className="flex items-center space-x-8">
               <Link href="/admin/dashboard" className="font-bold text-xl">
-                SwiftTap Admin
+                Zipayo Admin
               </Link>
               <Link href="/admin/dashboard" className="hover:text-[#00C9B1] transition-colors">
                 Dashboard

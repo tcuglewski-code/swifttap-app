@@ -1,5 +1,5 @@
 // ============================================================================
-// SwiftTap Rate Limiting
+// Zipayo Rate Limiting
 // Simple in-memory rate limiter (100 requests/minute per IP)
 // ============================================================================
 

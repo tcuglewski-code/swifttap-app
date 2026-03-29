@@ -1,10 +1,12 @@
+"use client"
+
 import Link from "next/link"
 import { Smartphone, ArrowLeft } from "lucide-react"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Impressum — SwiftTap",
-  description: "Impressum und rechtliche Informationen zu SwiftTap gemäß § 5 TMG.",
+  title: "Impressum — Zipayo",
+  description: "Impressum und rechtliche Informationen zu Zipayo gemäß § 5 TMG.",
 }
 
 export default function ImpressumPage() {
@@ -18,7 +20,7 @@ export default function ImpressumPage() {
               <div className="w-8 h-8 bg-accent rounded-lg flex items-center justify-center">
                 <Smartphone className="w-5 h-5 text-white" />
               </div>
-              <span className="text-xl font-bold text-primary">SwiftTap</span>
+              <span className="text-xl font-bold text-primary">Zipayo</span>
             </Link>
             <Link href="/" className="flex items-center gap-2 text-gray-600 hover:text-primary">
               <ArrowLeft className="w-4 h-4" />
@@ -46,7 +48,7 @@ export default function ImpressumPage() {
           <h2 className="text-xl font-semibold text-primary mt-8 mb-4">Kontakt</h2>
           <p className="text-gray-700 mb-4">
             E-Mail:{" "}
-            <a href="mailto:info@swifttap.de" className="text-accent hover:underline">info@swifttap.de</a>
+            <a href="mailto:info@zipayo.de" className="text-accent hover:underline">info@zipayo.de</a>
           </p>
 
           <h2 className="text-xl font-semibold text-primary mt-8 mb-4">Vertretungsberechtigte Person</h2>
@@ -153,14 +155,14 @@ export default function ImpressumPage() {
             <div className="w-6 h-6 bg-accent rounded-lg flex items-center justify-center">
               <Smartphone className="w-4 h-4 text-white" />
             </div>
-            <span className="font-bold text-white">SwiftTap</span>
+            <span className="font-bold text-white">Zipayo</span>
           </div>
           <div className="flex gap-6 text-sm">
             <Link href="/impressum" className="hover:text-white text-accent">Impressum</Link>
             <Link href="/datenschutz" className="hover:text-white">Datenschutz</Link>
             <Link href="/agb" className="hover:text-white">AGB</Link>
           </div>
-          <p className="text-sm">© 2026 SwiftTap. Alle Rechte vorbehalten.</p>
+          <p className="text-sm">© 2026 Zipayo. Alle Rechte vorbehalten.</p>
         </div>
       </footer>
     </div>

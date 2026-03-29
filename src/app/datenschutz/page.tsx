@@ -1,10 +1,12 @@
+"use client"
+
 import Link from "next/link"
 import { Smartphone, ArrowLeft } from "lucide-react"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Datenschutzerklärung — SwiftTap",
-  description: "Informationen zum Datenschutz bei SwiftTap. Erfahren Sie, wie wir Ihre Daten schützen und verarbeiten.",
+  title: "Datenschutzerklärung — Zipayo",
+  description: "Informationen zum Datenschutz bei Zipayo. Erfahren Sie, wie wir Ihre Daten schützen und verarbeiten.",
 }
 
 export default function DatenschutzPage() {
@@ -18,7 +20,7 @@ export default function DatenschutzPage() {
               <div className="w-8 h-8 bg-accent rounded-lg flex items-center justify-center">
                 <Smartphone className="w-5 h-5 text-white" />
               </div>
-              <span className="text-xl font-bold text-primary">SwiftTap</span>
+              <span className="text-xl font-bold text-primary">Zipayo</span>
             </Link>
             <Link href="/" className="flex items-center gap-2 text-gray-600 hover:text-primary">
               <ArrowLeft className="w-4 h-4" />
@@ -43,12 +45,12 @@ export default function DatenschutzPage() {
             [Firmenname]<br />
             [Straße und Hausnummer]<br />
             [PLZ Ort]<br />
-            E-Mail: <a href="mailto:datenschutz@swifttap.de" className="text-accent hover:underline">datenschutz@swifttap.de</a>
+            E-Mail: <a href="mailto:datenschutz@zipayo.de" className="text-accent hover:underline">datenschutz@zipayo.de</a>
           </p>
 
           <h2 className="text-xl font-semibold text-primary mt-8 mb-4">2. Erhebung und Verarbeitung personenbezogener Daten</h2>
           <p className="text-gray-700 mb-4">
-            Bei der Nutzung von SwiftTap erheben und verarbeiten wir folgende Kategorien personenbezogener Daten:
+            Bei der Nutzung von Zipayo erheben und verarbeiten wir folgende Kategorien personenbezogener Daten:
           </p>
           <h3 className="text-lg font-medium text-primary mt-6 mb-3">2.1 Kontodaten (Händler)</h3>
           <ul className="list-disc pl-6 text-gray-700 mb-4">
@@ -83,7 +85,7 @@ export default function DatenschutzPage() {
             Wir verarbeiten Ihre personenbezogenen Daten auf folgenden Rechtsgrundlagen:
           </p>
           <ul className="list-disc pl-6 text-gray-700 mb-4">
-            <li><strong>Art. 6 Abs. 1 lit. b DSGVO:</strong> Erfüllung des Vertrags über die Nutzung von SwiftTap</li>
+            <li><strong>Art. 6 Abs. 1 lit. b DSGVO:</strong> Erfüllung des Vertrags über die Nutzung von Zipayo</li>
             <li><strong>Art. 6 Abs. 1 lit. c DSGVO:</strong> Erfüllung rechtlicher Verpflichtungen (z.B. steuerrechtliche Aufbewahrung)</li>
             <li><strong>Art. 6 Abs. 1 lit. f DSGVO:</strong> Berechtigte Interessen (z.B. Betrugsprävention, Systemsicherheit)</li>
           </ul>
@@ -125,7 +127,7 @@ export default function DatenschutzPage() {
           </ul>
           <p className="text-gray-700 mb-4">
             Zur Ausübung Ihrer Rechte wenden Sie sich bitte an:{" "}
-            <a href="mailto:datenschutz@swifttap.de" className="text-accent hover:underline">datenschutz@swifttap.de</a>
+            <a href="mailto:datenschutz@zipayo.de" className="text-accent hover:underline">datenschutz@zipayo.de</a>
           </p>
 
           <h2 className="text-xl font-semibold text-primary mt-8 mb-4">7. Beschwerderecht</h2>
@@ -147,7 +149,7 @@ export default function DatenschutzPage() {
 
           <h2 className="text-xl font-semibold text-primary mt-8 mb-4">9. Cookies</h2>
           <p className="text-gray-700 mb-4">
-            SwiftTap verwendet nur technisch notwendige Cookies für:
+            Zipayo verwendet nur technisch notwendige Cookies für:
           </p>
           <ul className="list-disc pl-6 text-gray-700 mb-4">
             <li>Authentifizierung und Session-Management</li>
@@ -166,7 +168,7 @@ export default function DatenschutzPage() {
           <div className="mt-12 pt-8 border-t border-gray-200">
             <p className="text-sm text-gray-500">
               Bei Fragen zum Datenschutz erreichen Sie uns unter:{" "}
-              <a href="mailto:datenschutz@swifttap.de" className="text-accent hover:underline">datenschutz@swifttap.de</a>
+              <a href="mailto:datenschutz@zipayo.de" className="text-accent hover:underline">datenschutz@zipayo.de</a>
             </p>
           </div>
         </div>
@@ -179,14 +181,14 @@ export default function DatenschutzPage() {
             <div className="w-6 h-6 bg-accent rounded-lg flex items-center justify-center">
               <Smartphone className="w-4 h-4 text-white" />
             </div>
-            <span className="font-bold text-white">SwiftTap</span>
+            <span className="font-bold text-white">Zipayo</span>
           </div>
           <div className="flex gap-6 text-sm">
             <Link href="/impressum" className="hover:text-white">Impressum</Link>
             <Link href="/datenschutz" className="hover:text-white text-accent">Datenschutz</Link>
             <Link href="/agb" className="hover:text-white">AGB</Link>
           </div>
-          <p className="text-sm">© 2026 SwiftTap. Alle Rechte vorbehalten.</p>
+          <p className="text-sm">© 2026 Zipayo. Alle Rechte vorbehalten.</p>
         </div>
       </footer>
     </div>

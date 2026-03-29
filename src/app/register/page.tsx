@@ -92,7 +92,7 @@ export default function RegisterPage() {
             <div className="w-10 h-10 bg-accent rounded-lg flex items-center justify-center">
               <Smartphone className="w-6 h-6 text-white" />
             </div>
-            <span className="text-2xl font-bold text-primary">SwiftTap</span>
+            <span className="text-2xl font-bold text-primary">Zipayo</span>
           </Link>
           <CardTitle className="text-2xl">Konto erstellen</CardTitle>
           <CardDescription>

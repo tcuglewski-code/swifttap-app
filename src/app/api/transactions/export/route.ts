@@ -85,7 +85,7 @@ function generateCSV(transactions: any[], businessName: string, dateFrom: string
   const csvContent = bom + csv
 
   const dateRange = dateFrom && dateTo ? `_${dateFrom}_bis_${dateTo}` : ''
-  const filename = `SwiftTap_Transaktionen_${businessName.replace(/\s+/g, '_')}${dateRange}.csv`
+  const filename = `Zipayo_Transaktionen_${businessName.replace(/\s+/g, '_')}${dateRange}.csv`
 
   return new NextResponse(csvContent, {
     headers: {
@@ -110,7 +110,7 @@ async function generatePDF(transactions: any[], businessName: string, dateFrom: 
   let y = height - 50
 
   // Header
-  page.drawText('SwiftTap', {
+  page.drawText('Zipayo', {
     x: 50,
     y,
     size: 24,
@@ -259,7 +259,7 @@ async function generatePDF(transactions: any[], businessName: string, dateFrom: 
   })
 
   // Footer
-  page.drawText('Generiert von SwiftTap', {
+  page.drawText('Generiert von Zipayo', {
     x: 50,
     y: 30,
     size: 8,
@@ -269,7 +269,7 @@ async function generatePDF(transactions: any[], businessName: string, dateFrom: 
 
   const pdfBytes = await pdfDoc.save()
   const dateRangeStr = dateFrom && dateTo ? `_${dateFrom}_bis_${dateTo}` : ''
-  const filename = `SwiftTap_Transaktionen_${businessName.replace(/\s+/g, '_')}${dateRangeStr}.pdf`
+  const filename = `Zipayo_Transaktionen_${businessName.replace(/\s+/g, '_')}${dateRangeStr}.pdf`
 
   return new NextResponse(pdfBytes, {
     headers: {

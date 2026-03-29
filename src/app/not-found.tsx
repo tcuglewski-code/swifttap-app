@@ -1,3 +1,5 @@
+"use client"
+
 import Link from "next/link"
 import { Smartphone, Home, ArrowLeft } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -11,7 +13,7 @@ export default function NotFound() {
           <div className="w-10 h-10 bg-accent rounded-xl flex items-center justify-center">
             <Smartphone className="w-6 h-6 text-white" />
           </div>
-          <span className="text-2xl font-bold text-primary">SwiftTap</span>
+          <span className="text-2xl font-bold text-primary">Zipayo</span>
         </div>
 
         {/* 404 */}
@@ -46,7 +48,7 @@ export default function NotFound() {
         {/* Help */}
         <p className="mt-8 text-sm text-gray-500">
           Brauchen Sie Hilfe?{" "}
-          <a href="mailto:support@swifttap.de" className="text-accent hover:underline">
+          <a href="mailto:support@zipayo.de" className="text-accent hover:underline">
             Kontaktieren Sie uns
           </a>
         </p>

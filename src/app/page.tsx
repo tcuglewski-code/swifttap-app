@@ -1,3 +1,5 @@
+"use client"
+
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -16,11 +18,11 @@ import {
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
-  "name": "SwiftTap",
+  "name": "Zipayo",
   "applicationCategory": "FinanceApplication",
   "operatingSystem": "Web",
   "description": "Bargeldloses Bezahlen via QR Code + Stripe. Die moderne Zahlungsplattform für Händler.",
-  "url": "https://swifttap-app.vercel.app",
+  "url": "https://zipayo-app.vercel.app",
   "offers": [
     {
       "@type": "Offer",
@@ -52,7 +54,7 @@ const jsonLd = {
     "Stripe-Integration",
     "Team-Management"
   ],
-  "screenshot": "https://swifttap-app.vercel.app/og-image.png",
+  "screenshot": "https://zipayo-app.vercel.app/og-image.png",
   "aggregateRating": {
     "@type": "AggregateRating",
     "ratingValue": "4.8",
@@ -76,7 +78,7 @@ export default function Home() {
               <div className="w-8 h-8 bg-accent rounded-lg flex items-center justify-center">
                 <Smartphone className="w-5 h-5 text-white" />
               </div>
-              <span className="text-xl font-bold text-primary">SwiftTap</span>
+              <span className="text-xl font-bold text-primary">Zipayo</span>
             </div>
             <div className="flex items-center gap-4">
               <Link href="/login" className="text-gray-600 hover:text-primary">
@@ -191,7 +193,7 @@ export default function Home() {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-3xl font-bold text-primary mb-8">
-                Warum SwiftTap?
+                Warum Zipayo?
               </h2>
               <div className="space-y-6">
                 <div className="flex gap-4">
@@ -396,7 +398,7 @@ export default function Home() {
                 <div className="w-8 h-8 bg-accent rounded-lg flex items-center justify-center">
                   <Smartphone className="w-5 h-5 text-white" />
                 </div>
-                <span className="text-xl font-bold text-white">SwiftTap</span>
+                <span className="text-xl font-bold text-white">Zipayo</span>
               </div>
               <p className="text-sm">
                 Die moderne Zahlungsplattform für Händler.
@@ -428,7 +430,7 @@ export default function Home() {
             </div>
           </div>
           <div className="border-t border-primary-700 mt-8 pt-8 text-sm text-center">
-            © 2026 SwiftTap. Alle Rechte vorbehalten.
+            © 2026 Zipayo. Alle Rechte vorbehalten.
           </div>
         </div>
       </footer>

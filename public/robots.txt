@@ -1,5 +1,5 @@
-# SwiftTap robots.txt
-# https://swifttap-app.vercel.app
+# Zipayo robots.txt
+# https://zipayo-app.vercel.app
 
 User-agent: *
 Allow: /
@@ -13,4 +13,4 @@ Disallow: /dashboard
 Disallow: /dashboard/*
 
 # Allow sitemap
-Sitemap: https://swifttap-app.vercel.app/sitemap.xml
+Sitemap: https://zipayo-app.vercel.app/sitemap.xml

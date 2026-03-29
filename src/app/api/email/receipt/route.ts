@@ -70,7 +70,7 @@ export async function POST(req: NextRequest) {
     })
 
     const { data, error } = await resend.emails.send({
-      from: 'SwiftTap <noreply@swifttap.app>',
+      from: 'Zipayo <noreply@zipayo.app>',
       to: payment.customerEmail,
       subject: generateReceiptSubject(merchantName),
       html,

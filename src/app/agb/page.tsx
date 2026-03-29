@@ -1,10 +1,12 @@
+"use client"
+
 import Link from "next/link"
 import { Smartphone, ArrowLeft } from "lucide-react"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Allgemeine Geschäftsbedingungen — SwiftTap",
-  description: "AGB für die Nutzung von SwiftTap. Informieren Sie sich über die Vertragsbedingungen unserer Zahlungsplattform.",
+  title: "Allgemeine Geschäftsbedingungen — Zipayo",
+  description: "AGB für die Nutzung von Zipayo. Informieren Sie sich über die Vertragsbedingungen unserer Zahlungsplattform.",
 }
 
 export default function AGBPage() {
@@ -18,7 +20,7 @@ export default function AGBPage() {
               <div className="w-8 h-8 bg-accent rounded-lg flex items-center justify-center">
                 <Smartphone className="w-5 h-5 text-white" />
               </div>
-              <span className="text-xl font-bold text-primary">SwiftTap</span>
+              <span className="text-xl font-bold text-primary">Zipayo</span>
             </Link>
             <Link href="/" className="flex items-center gap-2 text-gray-600 hover:text-primary">
               <ArrowLeft className="w-4 h-4" />
@@ -38,17 +40,17 @@ export default function AGBPage() {
           <h2 className="text-xl font-semibold text-primary mt-8 mb-4">§ 1 Geltungsbereich</h2>
           <p className="text-gray-700 mb-4">
             (1) Diese Allgemeinen Geschäftsbedingungen (AGB) gelten für alle Verträge über die Nutzung der 
-            SaaS-Plattform „SwiftTap" zwischen dem Anbieter (nachfolgend „SwiftTap") und dem Kunden 
+            SaaS-Plattform „Zipayo" zwischen dem Anbieter (nachfolgend „Zipayo") und dem Kunden 
             (nachfolgend „Händler").
           </p>
           <p className="text-gray-700 mb-4">
-            (2) Abweichende Bedingungen des Händlers werden nicht anerkannt, es sei denn, SwiftTap stimmt 
+            (2) Abweichende Bedingungen des Händlers werden nicht anerkannt, es sei denn, Zipayo stimmt 
             ihrer Geltung ausdrücklich schriftlich zu.
           </p>
 
           <h2 className="text-xl font-semibold text-primary mt-8 mb-4">§ 2 Vertragsgegenstand</h2>
           <p className="text-gray-700 mb-4">
-            (1) SwiftTap stellt dem Händler eine webbasierte Zahlungsplattform zur Verfügung, die folgende 
+            (1) Zipayo stellt dem Händler eine webbasierte Zahlungsplattform zur Verfügung, die folgende 
             Funktionen umfasst:
           </p>
           <ul className="list-disc pl-6 text-gray-700 mb-4">
@@ -65,7 +67,7 @@ export default function AGBPage() {
 
           <h2 className="text-xl font-semibold text-primary mt-8 mb-4">§ 3 Vertragsschluss</h2>
           <p className="text-gray-700 mb-4">
-            (1) Die Registrierung bei SwiftTap stellt ein verbindliches Angebot zum Vertragsschluss dar.
+            (1) Die Registrierung bei Zipayo stellt ein verbindliches Angebot zum Vertragsschluss dar.
           </p>
           <p className="text-gray-700 mb-4">
             (2) Der Vertrag kommt mit der Freischaltung des Händlerkontos zustande.
@@ -76,7 +78,7 @@ export default function AGBPage() {
 
           <h2 className="text-xl font-semibold text-primary mt-8 mb-4">§ 4 Preise und Zahlungsbedingungen</h2>
           <p className="text-gray-700 mb-4">
-            (1) SwiftTap bietet folgende Tarife an:
+            (1) Zipayo bietet folgende Tarife an:
           </p>
           
           <div className="bg-gray-50 rounded-xl p-6 mb-6">
@@ -124,7 +126,7 @@ export default function AGBPage() {
             (1) Die Verarbeitung von Zahlungen erfolgt ausschließlich durch Stripe Payments Europe, Ltd.
           </p>
           <p className="text-gray-700 mb-4">
-            (2) Der Händler verpflichtet sich, die Nutzungsbedingungen von Stripe einzuhalten. SwiftTap ist 
+            (2) Der Händler verpflichtet sich, die Nutzungsbedingungen von Stripe einzuhalten. Zipayo ist 
             nicht Vertragspartner des Zahlungsvertrags zwischen Händler und Stripe.
           </p>
           <p className="text-gray-700 mb-4">
@@ -139,14 +141,14 @@ export default function AGBPage() {
           <ul className="list-disc pl-6 text-gray-700 mb-4">
             <li>Wahre und vollständige Angaben bei der Registrierung zu machen</li>
             <li>Zugangsdaten geheim zu halten und vor unbefugtem Zugriff zu schützen</li>
-            <li>SwiftTap unverzüglich über Änderungen relevanter Daten zu informieren</li>
+            <li>Zipayo unverzüglich über Änderungen relevanter Daten zu informieren</li>
             <li>Die Plattform nicht für illegale Zwecke zu nutzen</li>
             <li>Die geltenden Gesetze und Vorschriften einzuhalten, insbesondere Steuer- und Handelsrecht</li>
           </ul>
 
           <h2 className="text-xl font-semibold text-primary mt-8 mb-4">§ 7 Verfügbarkeit und Support</h2>
           <p className="text-gray-700 mb-4">
-            (1) SwiftTap strebt eine Verfügbarkeit von 99,5% im Jahresmittel an. Geplante Wartungsarbeiten 
+            (1) Zipayo strebt eine Verfügbarkeit von 99,5% im Jahresmittel an. Geplante Wartungsarbeiten 
             werden vorab angekündigt.
           </p>
           <p className="text-gray-700 mb-4">
@@ -160,15 +162,15 @@ export default function AGBPage() {
 
           <h2 className="text-xl font-semibold text-primary mt-8 mb-4">§ 8 Haftung</h2>
           <p className="text-gray-700 mb-4">
-            (1) SwiftTap haftet unbeschränkt für Schäden aus der Verletzung des Lebens, des Körpers oder 
+            (1) Zipayo haftet unbeschränkt für Schäden aus der Verletzung des Lebens, des Körpers oder 
             der Gesundheit sowie für Vorsatz und grobe Fahrlässigkeit.
           </p>
           <p className="text-gray-700 mb-4">
-            (2) Bei leichter Fahrlässigkeit haftet SwiftTap nur für die Verletzung wesentlicher 
+            (2) Bei leichter Fahrlässigkeit haftet Zipayo nur für die Verletzung wesentlicher 
             Vertragspflichten, begrenzt auf den vorhersehbaren, vertragstypischen Schaden.
           </p>
           <p className="text-gray-700 mb-4">
-            (3) SwiftTap haftet nicht für:
+            (3) Zipayo haftet nicht für:
           </p>
           <ul className="list-disc pl-6 text-gray-700 mb-4">
             <li>Störungen oder Ausfälle bei Stripe</li>
@@ -205,7 +207,7 @@ export default function AGBPage() {
 
           <h2 className="text-xl font-semibold text-primary mt-8 mb-4">§ 11 Änderungen der AGB</h2>
           <p className="text-gray-700 mb-4">
-            (1) SwiftTap behält sich vor, diese AGB mit angemessener Frist zu ändern.
+            (1) Zipayo behält sich vor, diese AGB mit angemessener Frist zu ändern.
           </p>
           <p className="text-gray-700 mb-4">
             (2) Änderungen werden dem Händler per E-Mail angekündigt. Widerspricht der Händler nicht innerhalb 
@@ -218,7 +220,7 @@ export default function AGBPage() {
           </p>
           <p className="text-gray-700 mb-4">
             (2) Ist der Händler Kaufmann, juristische Person des öffentlichen Rechts oder öffentlich-rechtliches 
-            Sondervermögen, ist ausschließlicher Gerichtsstand der Sitz von SwiftTap.
+            Sondervermögen, ist ausschließlicher Gerichtsstand der Sitz von Zipayo.
           </p>
           <p className="text-gray-700 mb-4">
             (3) Sollten einzelne Bestimmungen dieser AGB unwirksam sein, bleibt die Wirksamkeit der übrigen 
@@ -228,7 +230,7 @@ export default function AGBPage() {
           <div className="mt-12 pt-8 border-t border-gray-200">
             <p className="text-sm text-gray-500">
               Bei Fragen zu den AGB erreichen Sie uns unter:{" "}
-              <a href="mailto:info@swifttap.de" className="text-accent hover:underline">info@swifttap.de</a>
+              <a href="mailto:info@zipayo.de" className="text-accent hover:underline">info@zipayo.de</a>
             </p>
           </div>
         </div>
@@ -241,14 +243,14 @@ export default function AGBPage() {
             <div className="w-6 h-6 bg-accent rounded-lg flex items-center justify-center">
               <Smartphone className="w-4 h-4 text-white" />
             </div>
-            <span className="font-bold text-white">SwiftTap</span>
+            <span className="font-bold text-white">Zipayo</span>
           </div>
           <div className="flex gap-6 text-sm">
             <Link href="/impressum" className="hover:text-white">Impressum</Link>
             <Link href="/datenschutz" className="hover:text-white">Datenschutz</Link>
             <Link href="/agb" className="hover:text-white text-accent">AGB</Link>
           </div>
-          <p className="text-sm">© 2026 SwiftTap. Alle Rechte vorbehalten.</p>
+          <p className="text-sm">© 2026 Zipayo. Alle Rechte vorbehalten.</p>
         </div>
       </footer>
     </div>

@@ -144,7 +144,7 @@ export default function ApiKeysPage() {
           {keys.length === 0 ? (
             <div className="text-center py-8 text-gray-500">
               <p>Noch keine API-Keys erstellt</p>
-              <p className="text-sm mt-2">Erstelle einen Key um die SwiftTap API zu nutzen</p>
+              <p className="text-sm mt-2">Erstelle einen Key um die Zipayo API zu nutzen</p>
             </div>
           ) : (
             <div className="space-y-3">
@@ -182,15 +182,15 @@ export default function ApiKeysPage() {
             <h3 className="font-semibold text-lg mb-2">Authentifizierung</h3>
             <p className="text-gray-600 mb-2">Sende deinen API-Key im Header:</p>
             <pre className="bg-gray-900 text-green-400 p-4 rounded-lg overflow-x-auto">
-              X-SwiftTap-Key: st_live_xxx...
+              X-Zipayo-Key: st_live_xxx...
             </pre>
           </div>
 
           <div>
             <h3 className="font-semibold text-lg mb-2">Zahlung erstellen</h3>
             <pre className="bg-gray-900 text-green-400 p-4 rounded-lg overflow-x-auto text-sm">
-{`curl -X POST https://swifttap-app.vercel.app/api/v1/payment-request \\
-  -H "X-SwiftTap-Key: st_live_xxx" \\
+{`curl -X POST https://zipayo-app.vercel.app/api/v1/payment-request \\
+  -H "X-Zipayo-Key: st_live_xxx" \\
   -H "Content-Type: application/json" \\
   -d '{
     "amount": 1500,
@@ -204,16 +204,16 @@ export default function ApiKeysPage() {
           <div>
             <h3 className="font-semibold text-lg mb-2">Status abfragen</h3>
             <pre className="bg-gray-900 text-green-400 p-4 rounded-lg overflow-x-auto text-sm">
-{`curl https://swifttap-app.vercel.app/api/v1/payment-status/{paymentId} \\
-  -H "X-SwiftTap-Key: st_live_xxx"`}
+{`curl https://zipayo-app.vercel.app/api/v1/payment-status/{paymentId} \\
+  -H "X-Zipayo-Key: st_live_xxx"`}
             </pre>
           </div>
 
           <div>
             <h3 className="font-semibold text-lg mb-2">Zahlung abbrechen</h3>
             <pre className="bg-gray-900 text-green-400 p-4 rounded-lg overflow-x-auto text-sm">
-{`curl -X POST https://swifttap-app.vercel.app/api/v1/payment-request/{paymentId}/cancel \\
-  -H "X-SwiftTap-Key: st_live_xxx"`}
+{`curl -X POST https://zipayo-app.vercel.app/api/v1/payment-request/{paymentId}/cancel \\
+  -H "X-Zipayo-Key: st_live_xxx"`}
             </pre>
           </div>
         </CardContent>

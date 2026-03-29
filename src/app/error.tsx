@@ -14,7 +14,7 @@ export default function Error({
 }) {
   useEffect(() => {
     // Log error to error reporting service
-    console.error('SwiftTap Error:', error)
+    console.error('Zipayo Error:', error)
   }, [error])
 
   return (
@@ -25,7 +25,7 @@ export default function Error({
           <div className="w-10 h-10 bg-accent rounded-xl flex items-center justify-center">
             <Smartphone className="w-6 h-6 text-white" />
           </div>
-          <span className="text-2xl font-bold text-primary">SwiftTap</span>
+          <span className="text-2xl font-bold text-primary">Zipayo</span>
         </div>
 
         {/* Error Icon */}
@@ -67,7 +67,7 @@ export default function Error({
         {/* Help */}
         <p className="mt-8 text-sm text-gray-500">
           Problem besteht weiterhin?{" "}
-          <a href="mailto:support@swifttap.de" className="text-accent hover:underline">
+          <a href="mailto:support@zipayo.de" className="text-accent hover:underline">
             Kontaktieren Sie unseren Support
           </a>
         </p>

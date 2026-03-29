@@ -6,10 +6,10 @@ import { Providers } from "@/components/providers"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://swifttap-app.vercel.app'),
+  metadataBase: new URL('https://zipayo-app.vercel.app'),
   title: {
-    default: "SwiftTap - Bezahlen so einfach wie ein Tipp",
-    template: "%s — SwiftTap"
+    default: "Zipayo - Bezahlen so einfach wie ein Tipp",
+    template: "%s — Zipayo"
   },
   description: "Bargeldloses Bezahlen via QR Code + Stripe. Die moderne Zahlungsplattform für Händler. Sofort einsatzbereit, keine Hardware nötig.",
   keywords: [
@@ -27,9 +27,9 @@ export const metadata: Metadata = {
     "Tap to Pay",
     "Mobile Payment"
   ],
-  authors: [{ name: "SwiftTap" }],
-  creator: "SwiftTap",
-  publisher: "SwiftTap",
+  authors: [{ name: "Zipayo" }],
+  creator: "Zipayo",
+  publisher: "Zipayo",
   formatDetection: {
     email: false,
     address: false,
@@ -38,25 +38,25 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "de_DE",
-    url: "https://swifttap-app.vercel.app",
-    siteName: "SwiftTap",
-    title: "SwiftTap - Bezahlen so einfach wie ein Tipp",
+    url: "https://zipayo-app.vercel.app",
+    siteName: "Zipayo",
+    title: "Zipayo - Bezahlen so einfach wie ein Tipp",
     description: "Bargeldloses Bezahlen via QR Code + Stripe. Die moderne Zahlungsplattform für Händler.",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "SwiftTap - Die moderne Zahlungsplattform",
+        alt: "Zipayo - Die moderne Zahlungsplattform",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "SwiftTap - Bezahlen so einfach wie ein Tipp",
+    title: "Zipayo - Bezahlen so einfach wie ein Tipp",
     description: "Bargeldloses Bezahlen via QR Code + Stripe. Die moderne Zahlungsplattform für Händler.",
     images: ["/og-image.png"],
-    creator: "@swifttap",
+    creator: "@zipayo",
   },
   robots: {
     index: true,
@@ -74,7 +74,7 @@ export const metadata: Metadata = {
     // yandex: 'your-yandex-verification-code',
   },
   alternates: {
-    canonical: "https://swifttap-app.vercel.app",
+    canonical: "https://zipayo-app.vercel.app",
   },
 }
 

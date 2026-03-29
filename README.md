@@ -1,14 +1,14 @@
-# SwiftTap
+# Zipayo
 
 **Bezahlen so einfach wie ein Tipp** — Die moderne Zahlungsplattform für Händler.
 
-![SwiftTap](https://swifttap-app.vercel.app/og-image.png)
+![Zipayo](https://zipayo-app.vercel.app/og-image.png)
 
-## 🚀 Was ist SwiftTap?
+## 🚀 Was ist Zipayo?
 
-SwiftTap ist eine SaaS-Zahlungsplattform, die es Händlern ermöglicht, bargeldlose Zahlungen via QR-Code und Tap-to-Pay zu akzeptieren. Keine teure Hardware, keine komplizierten Verträge — einfach registrieren, Stripe verbinden und Zahlungen empfangen.
+Zipayo ist eine SaaS-Zahlungsplattform, die es Händlern ermöglicht, bargeldlose Zahlungen via QR-Code und Tap-to-Pay zu akzeptieren. Keine teure Hardware, keine komplizierten Verträge — einfach registrieren, Stripe verbinden und Zahlungen empfangen.
 
-**Live-Demo:** [https://swifttap-app.vercel.app](https://swifttap-app.vercel.app)
+**Live-Demo:** [https://zipayo-app.vercel.app](https://zipayo-app.vercel.app)
 
 ## ✨ Features
 
@@ -17,7 +17,7 @@ SwiftTap ist eine SaaS-Zahlungsplattform, die es Händlern ermöglicht, bargeldl
 - **Tap to Pay** — Nutze dein Smartphone als Zahlungsterminal (NFC)
 - **Echtzeit-Dashboard** — Alle Transaktionen und Umsätze auf einen Blick
 - **Team-Management** — Lade Teammitglieder ein und verwalte Berechtigungen
-- **API-Zugang** — Integriere SwiftTap in deine bestehende Software
+- **API-Zugang** — Integriere Zipayo in deine bestehende Software
 - **Multi-Standorte** — Verwalte mehrere Filialen in einem Account
 - **Custom Branding** — Dein Logo auf Zahlungsseiten (Pro+)
 
@@ -70,8 +70,8 @@ SwiftTap ist eine SaaS-Zahlungsplattform, die es Händlern ermöglicht, bargeldl
 
 ```bash
 # Repository klonen
-git clone https://github.com/tcuglewski-code/swifttap-app.git
-cd swifttap-app
+git clone https://github.com/tcuglewski-code/zipayo-app.git
+cd zipayo-app
 
 # Dependencies installieren
 npm install
@@ -101,7 +101,7 @@ npm run dev
 | `STRIPE_PUBLISHABLE_KEY` | Stripe Publishable Key (pk_...) | ✅ |
 | `STRIPE_WEBHOOK_SECRET` | Stripe Webhook Signing Secret (whsec_...) | ✅ |
 | `RESEND_API_KEY` | Resend API Key für E-Mails | ❌ |
-| `SWIFTTAP_PLATFORM_FEE_PERCENT` | Plattformgebühr in % (default: 1.4) | ❌ |
+| `ZIPAYO_PLATFORM_FEE_PERCENT` | Plattformgebühr in % (default: 1.4) | ❌ |
 
 ### Stripe Keys erhalten
 
@@ -129,7 +129,7 @@ X-API-Key: st_dein-api-key
 #### Zahlungsanfrage erstellen
 
 ```bash
-curl -X POST https://swifttap-app.vercel.app/api/v1/payment-request \
+curl -X POST https://zipayo-app.vercel.app/api/v1/payment-request \
   -H "Authorization: Bearer st_dein-api-key" \
   -H "Content-Type: application/json" \
   -d '{
@@ -146,8 +146,8 @@ curl -X POST https://swifttap-app.vercel.app/api/v1/payment-request \
   "amount": 2500,
   "currency": "eur",
   "status": "pending",
-  "paymentUrl": "https://swifttap-app.vercel.app/pay/pr_abc123",
-  "qrCodeUrl": "https://swifttap-app.vercel.app/api/qr/pr_abc123",
+  "paymentUrl": "https://zipayo-app.vercel.app/pay/pr_abc123",
+  "qrCodeUrl": "https://zipayo-app.vercel.app/api/qr/pr_abc123",
   "expiresAt": "2026-03-30T12:00:00Z"
 }
 ```
@@ -155,7 +155,7 @@ curl -X POST https://swifttap-app.vercel.app/api/v1/payment-request \
 #### Zahlungsstatus abfragen
 
 ```bash
-curl https://swifttap-app.vercel.app/api/v1/payment-status/pr_abc123 \
+curl https://zipayo-app.vercel.app/api/v1/payment-status/pr_abc123 \
   -H "Authorization: Bearer st_dein-api-key"
 ```
 
@@ -173,13 +173,13 @@ curl https://swifttap-app.vercel.app/api/v1/payment-status/pr_abc123 \
 #### Zahlungsanfrage stornieren
 
 ```bash
-curl -X POST https://swifttap-app.vercel.app/api/v1/payment-request/pr_abc123/cancel \
+curl -X POST https://zipayo-app.vercel.app/api/v1/payment-request/pr_abc123/cancel \
   -H "Authorization: Bearer st_dein-api-key"
 ```
 
 ### Webhooks
 
-SwiftTap sendet Webhook-Events an deine konfigurierte URL:
+Zipayo sendet Webhook-Events an deine konfigurierte URL:
 
 ```json
 {
@@ -202,7 +202,7 @@ Events:
 
 ## 🚀 Deploy auf Vercel
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/tcuglewski-code/swifttap-app)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/tcuglewski-code/zipayo-app)
 
 1. Klicke auf den Button oben
 2. Verbinde dein GitHub Repository
@@ -218,7 +218,7 @@ Events:
 ## 📁 Projektstruktur
 
 ```
-swifttap-app/
+zipayo-app/
 ├── prisma/
 │   └── schema.prisma       # Datenbankschema
 ├── public/
@@ -268,9 +268,9 @@ MIT License — siehe [LICENSE](LICENSE)
 
 ## 🤝 Support
 
-- **E-Mail:** support@swifttap.de
-- **Issues:** [GitHub Issues](https://github.com/tcuglewski-code/swifttap-app/issues)
+- **E-Mail:** support@zipayo.de
+- **Issues:** [GitHub Issues](https://github.com/tcuglewski-code/zipayo-app/issues)
 
 ---
 
-Made with ❤️ by SwiftTap
+Made with ❤️ by Zipayo

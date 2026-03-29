@@ -1,5 +1,5 @@
 // ============================================================================
-// SwiftTap Environment Variables Check
+// Zipayo Environment Variables Check
 // Warns on startup if placeholder keys are active
 // ============================================================================
 
@@ -54,7 +54,7 @@ const ENV_CONFIGS: EnvConfig[] = [
     placeholder: ['re_your-key-here'],
   },
   {
-    key: 'SWIFTTAP_PLATFORM_FEE_PERCENT',
+    key: 'ZIPAYO_PLATFORM_FEE_PERCENT',
     required: false,
     description: 'Platform fee percentage (default: 1.4)',
   },
@@ -120,7 +120,7 @@ export function logEnvironmentWarnings(): void {
     return
   }
 
-  console.log('\n⚠️  SwiftTap Environment Check:')
+  console.log('\n⚠️  Zipayo Environment Check:')
   console.log('=' .repeat(50))
   
   for (const warning of warnings) {

@@ -1,5 +1,5 @@
 // ============================================================================
-// SwiftTap API Key Generator
+// Zipayo API Key Generator
 // Generates secure API keys with 32+ characters and "st_" prefix
 // ============================================================================
 
