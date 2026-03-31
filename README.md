@@ -1,4 +1,4 @@
-# Zipayo
+# Zipayo 💳
 
 **Bezahlen so einfach wie ein Tipp** — Die moderne Zahlungsplattform für Händler.
 
@@ -56,6 +56,10 @@ Zipayo ist eine SaaS-Zahlungsplattform, die es Händlern ermöglicht, bargeldlos
 - **E-Mail:** Resend
 - **Hosting:** Vercel
 
+## 📚 Documentation
+
+- 📋 [Staging Setup & Testing](docs/STAGING-SETUP.md) - Stripe Test-Keys, Webhooks, End-to-End Tests
+
 ## 🚀 Schnellstart
 
 ### Voraussetzungen
@@ -70,8 +74,8 @@ Zipayo ist eine SaaS-Zahlungsplattform, die es Händlern ermöglicht, bargeldlos
 
 ```bash
 # Repository klonen
-git clone https://github.com/tcuglewski-code/zipayo-app.git
-cd zipayo-app
+git clone https://github.com/tcuglewski-code/swifttap-app.git
+cd swifttap-app
 
 # Dependencies installieren
 npm install
@@ -202,7 +206,7 @@ Events:
 
 ## 🚀 Deploy auf Vercel
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/tcuglewski-code/zipayo-app)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/tcuglewski-code/swifttap-app)
 
 1. Klicke auf den Button oben
 2. Verbinde dein GitHub Repository
@@ -218,7 +222,7 @@ Events:
 ## 📁 Projektstruktur
 
 ```
-zipayo-app/
+swifttap-app/
 ├── prisma/
 │   └── schema.prisma       # Datenbankschema
 ├── public/
@@ -246,6 +250,8 @@ zipayo-app/
 │       ├── rate-limit.ts
 │       ├── validation.ts   # Zod Schemas
 │       └── cors.ts
+├── docs/
+│   └── STAGING-SETUP.md    # Testing & Staging Guide
 ├── .env.example
 ├── next.config.mjs
 ├── package.json
@@ -269,8 +275,8 @@ MIT License — siehe [LICENSE](LICENSE)
 ## 🤝 Support
 
 - **E-Mail:** support@zipayo.de
-- **Issues:** [GitHub Issues](https://github.com/tcuglewski-code/zipayo-app/issues)
+- **Issues:** [GitHub Issues](https://github.com/tcuglewski-code/swifttap-app/issues)
 
 ---
 
-Made with ❤️ by Zipayo
+Made with ❤️ by Zipayo (Feldhub UG)
