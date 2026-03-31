@@ -2,13 +2,13 @@
 
 **Bezahlen so einfach wie ein Tipp** — Die moderne Zahlungsplattform für Händler.
 
-![Zipayo](https://zipayo-app.vercel.app/og-image.png)
+![Zipayo](https://swifttap-app.vercel.app/og-image.png)
 
 ## 🚀 Was ist Zipayo?
 
 Zipayo ist eine SaaS-Zahlungsplattform, die es Händlern ermöglicht, bargeldlose Zahlungen via QR-Code und Tap-to-Pay zu akzeptieren. Keine teure Hardware, keine komplizierten Verträge — einfach registrieren, Stripe verbinden und Zahlungen empfangen.
 
-**Live-Demo:** [https://zipayo-app.vercel.app](https://zipayo-app.vercel.app)
+**Live-Demo:** [https://swifttap-app.vercel.app](https://swifttap-app.vercel.app)
 
 ## ✨ Features
 
@@ -129,7 +129,7 @@ X-API-Key: st_dein-api-key
 #### Zahlungsanfrage erstellen
 
 ```bash
-curl -X POST https://zipayo-app.vercel.app/api/v1/payment-request \
+curl -X POST https://swifttap-app.vercel.app/api/v1/payment-request \
   -H "Authorization: Bearer st_dein-api-key" \
   -H "Content-Type: application/json" \
   -d '{
@@ -146,8 +146,8 @@ curl -X POST https://zipayo-app.vercel.app/api/v1/payment-request \
   "amount": 2500,
   "currency": "eur",
   "status": "pending",
-  "paymentUrl": "https://zipayo-app.vercel.app/pay/pr_abc123",
-  "qrCodeUrl": "https://zipayo-app.vercel.app/api/qr/pr_abc123",
+  "paymentUrl": "https://swifttap-app.vercel.app/pay/pr_abc123",
+  "qrCodeUrl": "https://swifttap-app.vercel.app/api/qr/pr_abc123",
   "expiresAt": "2026-03-30T12:00:00Z"
 }
 ```
@@ -155,7 +155,7 @@ curl -X POST https://zipayo-app.vercel.app/api/v1/payment-request \
 #### Zahlungsstatus abfragen
 
 ```bash
-curl https://zipayo-app.vercel.app/api/v1/payment-status/pr_abc123 \
+curl https://swifttap-app.vercel.app/api/v1/payment-status/pr_abc123 \
   -H "Authorization: Bearer st_dein-api-key"
 ```
 
@@ -173,7 +173,7 @@ curl https://zipayo-app.vercel.app/api/v1/payment-status/pr_abc123 \
 #### Zahlungsanfrage stornieren
 
 ```bash
-curl -X POST https://zipayo-app.vercel.app/api/v1/payment-request/pr_abc123/cancel \
+curl -X POST https://swifttap-app.vercel.app/api/v1/payment-request/pr_abc123/cancel \
   -H "Authorization: Bearer st_dein-api-key"
 ```
 

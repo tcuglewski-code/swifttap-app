@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://zipayo-app.vercel.app'
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://swifttap-app.vercel.app'
   const currentDate = new Date()
 
   return [

@@ -22,7 +22,7 @@ const jsonLd = {
   "applicationCategory": "FinanceApplication",
   "operatingSystem": "Web",
   "description": "Bargeldloses Bezahlen via QR Code + Stripe. Die moderne Zahlungsplattform für Händler.",
-  "url": "https://zipayo-app.vercel.app",
+  "url": "https://swifttap-app.vercel.app",
   "offers": [
     {
       "@type": "Offer",
@@ -54,7 +54,7 @@ const jsonLd = {
     "Stripe-Integration",
     "Team-Management"
   ],
-  "screenshot": "https://zipayo-app.vercel.app/og-image.png",
+  "screenshot": "https://swifttap-app.vercel.app/og-image.png",
   "aggregateRating": {
     "@type": "AggregateRating",
     "ratingValue": "4.8",

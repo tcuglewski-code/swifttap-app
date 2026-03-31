@@ -88,7 +88,7 @@ export async function POST(request: NextRequest) {
       }
     })
 
-    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "https://zipayo-app.vercel.app"
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "https://swifttap-app.vercel.app"
     const payUrl = `${baseUrl}/pay/${payment.id}`
     const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(payUrl)}`
 

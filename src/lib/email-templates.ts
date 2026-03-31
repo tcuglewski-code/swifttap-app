@@ -297,7 +297,7 @@ export function generateWelcomeHtml(data: WelcomeEmailData): string {
     <!-- CTA Button -->
     <tr>
       <td style="padding: 0 32px 32px; text-align: center;">
-        ${primaryButton('Zum Dashboard', 'https://zipayo-app.vercel.app/dashboard')}
+        ${primaryButton('Zum Dashboard', 'https://swifttap-app.vercel.app/dashboard')}
       </td>
     </tr>
     
@@ -487,7 +487,7 @@ export function generateDailyDigestHtml(data: DailyDigestData): string {
     <!-- CTA Button -->
     <tr>
       <td style="padding: 0 32px 32px; text-align: center;">
-        ${primaryButton('Dashboard öffnen', 'https://zipayo-app.vercel.app/dashboard')}
+        ${primaryButton('Dashboard öffnen', 'https://swifttap-app.vercel.app/dashboard')}
       </td>
     </tr>
   `
