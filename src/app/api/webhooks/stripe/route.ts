@@ -6,27 +6,50 @@ import { stripe } from "@/lib/stripe"
 import { prisma } from "@/lib/prisma"
 import { resend, isResendConfigured } from "@/lib/resend"
 import { generateReceiptHtml, generateReceiptSubject } from "@/lib/email-templates"
+import { checkRateLimit, getClientIP, RATE_LIMITS } from "@/lib/rate-limit"
 import Stripe from "stripe"
 
 export async function POST(req: NextRequest) {
+  // Rate limiting for webhooks (allow burst but prevent abuse)
+  const clientIP = getClientIP(req.headers)
+  const rateLimit = checkRateLimit(`webhook:${clientIP}`, RATE_LIMITS.webhook)
+  
+  if (!rateLimit.success) {
+    console.warn(`Webhook rate limit exceeded for IP: ${clientIP}`)
+    return NextResponse.json(
+      { error: "Rate limit exceeded" },
+      { status: 429 }
+    )
+  }
+
   const body = await req.text()
   const headersList = await headers()
   const signature = headersList.get("stripe-signature")
   
   const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET
 
-  // Graceful if webhook secret not configured
+  // SECURITY: In production, webhook secret MUST be configured
+  // We reject requests if not configured rather than processing unverified webhooks
   if (!webhookSecret) {
-    console.log("STRIPE_WEBHOOK_SECRET not set - skipping webhook verification")
-    return NextResponse.json({ received: true, warning: "webhook_secret_not_configured" })
+    console.error("CRITICAL: STRIPE_WEBHOOK_SECRET not set - rejecting webhook for security")
+    // Return 200 to prevent Stripe from retrying, but log as critical
+    // In development, you might want to change this to 503
+    return NextResponse.json(
+      { error: "Webhook not configured", warning: "Contact administrator" },
+      { status: 503 }
+    )
   }
 
   if (!stripe) {
-    console.log("Stripe not configured - skipping webhook")
-    return NextResponse.json({ received: true, warning: "stripe_not_configured" })
+    console.error("Stripe client not configured")
+    return NextResponse.json(
+      { error: "Payment processor not configured" },
+      { status: 503 }
+    )
   }
 
   if (!signature) {
+    console.warn("Webhook received without signature - rejecting")
     return NextResponse.json({ error: "No signature" }, { status: 400 })
   }
 

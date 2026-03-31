@@ -2,8 +2,29 @@ export const dynamic = 'force-dynamic'
 
 import { NextRequest, NextResponse } from "next/server"
 import { stripe } from "@/lib/stripe"
+import { checkRateLimit, getClientIP, RATE_LIMITS } from "@/lib/rate-limit"
 
 export async function POST(req: NextRequest) {
+  // Rate limiting - 5 payment creates per minute per IP
+  const clientIP = getClientIP(req.headers)
+  const rateLimitKey = `payment-intent:${clientIP}`
+  const rateLimit = checkRateLimit(rateLimitKey, RATE_LIMITS.paymentCreate)
+  
+  if (!rateLimit.success) {
+    return NextResponse.json(
+      { error: "Too many requests. Please try again later." },
+      { 
+        status: 429,
+        headers: {
+          'Retry-After': String(Math.ceil((rateLimit.resetAt - Date.now()) / 1000)),
+          'X-RateLimit-Limit': String(rateLimit.limit),
+          'X-RateLimit-Remaining': '0',
+          'X-RateLimit-Reset': String(rateLimit.resetAt),
+        }
+      }
+    )
+  }
+
   try {
     if (!stripe) {
       return NextResponse.json(
@@ -21,23 +42,44 @@ export async function POST(req: NextRequest) {
       )
     }
 
+    // Validate email format if provided
+    if (email && !isValidEmail(email)) {
+      return NextResponse.json(
+        { error: "Ungültige E-Mail-Adresse" },
+        { status: 400 }
+      )
+    }
+
+    // Sanitize description (prevent potential XSS in receipts)
+    const sanitizedDescription = description 
+      ? String(description).slice(0, 500).replace(/<[^>]*>/g, '') 
+      : "Zipayo Zahlung"
+
     // Create a PaymentIntent with the specified amount
     const paymentIntent = await stripe.paymentIntents.create({
       amount: Math.round(amount), // amount in cents
       currency: "eur",
-      receipt_email: email,
-      description: description || "Zipayo Zahlung",
+      receipt_email: email || undefined,
+      description: sanitizedDescription,
       automatic_payment_methods: {
         enabled: true,
       },
       metadata: {
         source: "zipayo",
+        clientIP, // Track for fraud detection
       },
     })
 
-    return NextResponse.json({
-      clientSecret: paymentIntent.client_secret,
-    })
+    return NextResponse.json(
+      { clientSecret: paymentIntent.client_secret },
+      {
+        headers: {
+          'X-RateLimit-Limit': String(rateLimit.limit),
+          'X-RateLimit-Remaining': String(rateLimit.remaining),
+          'X-RateLimit-Reset': String(rateLimit.resetAt),
+        }
+      }
+    )
   } catch (error: any) {
     console.error("Payment Intent Error:", error)
     return NextResponse.json(
@@ -45,4 +87,9 @@ export async function POST(req: NextRequest) {
       { status: 500 }
     )
   }
+}
+
+function isValidEmail(email: string): boolean {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  return emailRegex.test(email) && email.length <= 254
 }

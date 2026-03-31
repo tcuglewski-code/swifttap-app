@@ -1,101 +1,133 @@
-// ============================================================================
-// Zipayo Rate Limiting
-// Simple in-memory rate limiter (100 requests/minute per IP)
-// ============================================================================
+/**
+ * Simple in-memory rate limiter for Vercel Serverless/Edge
+ * Note: This resets on cold starts. For production at scale, use Upstash Redis.
+ * 
+ * @see https://upstash.com/blog/nextjs-rate-limiting for Redis-based solution
+ */
 
 interface RateLimitEntry {
   count: number
   resetAt: number
 }
 
-// In-memory store (resets on server restart, use Redis in production)
+// In-memory store (resets on cold start - acceptable for MVP)
 const rateLimitStore = new Map<string, RateLimitEntry>()
 
-// Configuration
-const RATE_LIMIT_WINDOW_MS = 60 * 1000 // 1 minute
-const RATE_LIMIT_MAX_REQUESTS = 100
+// Clean up old entries periodically
+const CLEANUP_INTERVAL = 60 * 1000 // 1 minute
+let lastCleanup = Date.now()
 
-// Cleanup old entries every 5 minutes
-if (typeof setInterval !== 'undefined') {
-  setInterval(() => {
-    const now = Date.now()
-    for (const [key, entry] of rateLimitStore.entries()) {
-      if (entry.resetAt < now) {
-        rateLimitStore.delete(key)
-      }
+function cleanupExpiredEntries() {
+  const now = Date.now()
+  if (now - lastCleanup < CLEANUP_INTERVAL) return
+  
+  for (const [key, entry] of rateLimitStore.entries()) {
+    if (entry.resetAt < now) {
+      rateLimitStore.delete(key)
     }
-  }, 5 * 60 * 1000)
+  }
+  lastCleanup = now
+}
+
+export interface RateLimitConfig {
+  /** Maximum requests allowed in the window */
+  limit: number
+  /** Window size in milliseconds */
+  windowMs: number
 }
 
 export interface RateLimitResult {
   success: boolean
   limit: number
   remaining: number
-  reset: number
+  resetAt: number
 }
 
-export function checkRateLimit(identifier: string): RateLimitResult {
+/**
+ * Check rate limit for a given identifier (IP, API key, user ID, etc.)
+ */
+export function checkRateLimit(
+  identifier: string,
+  config: RateLimitConfig
+): RateLimitResult {
+  cleanupExpiredEntries()
+  
   const now = Date.now()
-  const entry = rateLimitStore.get(identifier)
-
-  // No entry or expired entry
+  const key = identifier
+  const entry = rateLimitStore.get(key)
+  
   if (!entry || entry.resetAt < now) {
-    const newEntry: RateLimitEntry = {
-      count: 1,
-      resetAt: now + RATE_LIMIT_WINDOW_MS,
-    }
-    rateLimitStore.set(identifier, newEntry)
+    // New window
+    const resetAt = now + config.windowMs
+    rateLimitStore.set(key, { count: 1, resetAt })
     
     return {
       success: true,
-      limit: RATE_LIMIT_MAX_REQUESTS,
-      remaining: RATE_LIMIT_MAX_REQUESTS - 1,
-      reset: newEntry.resetAt,
+      limit: config.limit,
+      remaining: config.limit - 1,
+      resetAt,
     }
   }
-
-  // Entry exists and is valid
-  if (entry.count >= RATE_LIMIT_MAX_REQUESTS) {
+  
+  // Existing window
+  if (entry.count >= config.limit) {
     return {
       success: false,
-      limit: RATE_LIMIT_MAX_REQUESTS,
+      limit: config.limit,
       remaining: 0,
-      reset: entry.resetAt,
+      resetAt: entry.resetAt,
     }
   }
-
-  // Increment counter
+  
   entry.count++
-  rateLimitStore.set(identifier, entry)
-
   return {
     success: true,
-    limit: RATE_LIMIT_MAX_REQUESTS,
-    remaining: RATE_LIMIT_MAX_REQUESTS - entry.count,
-    reset: entry.resetAt,
+    limit: config.limit,
+    remaining: config.limit - entry.count,
+    resetAt: entry.resetAt,
   }
 }
 
-export function getRateLimitHeaders(result: RateLimitResult): Record<string, string> {
-  return {
-    'X-RateLimit-Limit': result.limit.toString(),
-    'X-RateLimit-Remaining': result.remaining.toString(),
-    'X-RateLimit-Reset': result.reset.toString(),
-  }
-}
-
-// Helper to extract IP from request
-export function getClientIP(request: Request): string {
-  const forwardedFor = request.headers.get('x-forwarded-for')
+/**
+ * Get client IP from request headers (works with Vercel, Cloudflare, etc.)
+ */
+export function getClientIP(headers: Headers): string {
+  // Check common proxy headers
+  const forwardedFor = headers.get('x-forwarded-for')
   if (forwardedFor) {
+    // Take the first IP in the chain (client IP)
     return forwardedFor.split(',')[0].trim()
   }
   
-  const realIP = request.headers.get('x-real-ip')
-  if (realIP) {
-    return realIP
+  // Vercel-specific
+  const vercelIp = headers.get('x-vercel-forwarded-for')
+  if (vercelIp) {
+    return vercelIp.split(',')[0].trim()
+  }
+  
+  // Cloudflare
+  const cfConnectingIp = headers.get('cf-connecting-ip')
+  if (cfConnectingIp) {
+    return cfConnectingIp
   }
   
   // Fallback
-  return 'unknown'
+  return headers.get('x-real-ip') || 'unknown'
 }
+
+// Pre-configured rate limiters for common use cases
+export const RATE_LIMITS = {
+  // Payment endpoints - stricter limits
+  payment: { limit: 10, windowMs: 60 * 1000 },        // 10 req/min
+  paymentCreate: { limit: 5, windowMs: 60 * 1000 },   // 5 creates/min
+  
+  // Webhooks - allow burst for Stripe callbacks
+  webhook: { limit: 100, windowMs: 60 * 1000 },       // 100 req/min
+  
+  // API endpoints - standard limits
+  api: { limit: 30, windowMs: 60 * 1000 },            // 30 req/min
+  
+  // Auth endpoints - strict for brute-force protection
+  auth: { limit: 5, windowMs: 5 * 60 * 1000 },        // 5 attempts/5min
+  register: { limit: 3, windowMs: 60 * 60 * 1000 },   // 3 signups/hour per IP
+} as const
