@@ -1,5 +1,5 @@
 # Zipayo robots.txt
-# https://zipayo-app.vercel.app
+# https://swifttap-app.vercel.app
 
 User-agent: *
 Allow: /
@@ -12,5 +12,8 @@ Disallow: /api/*
 Disallow: /dashboard
 Disallow: /dashboard/*
 
+# Disallow payment pages (contain sensitive data)
+Disallow: /pay/*
+
 # Allow sitemap
-Sitemap: https://zipayo-app.vercel.app/sitemap.xml
+Sitemap: https://swifttap-app.vercel.app/sitemap.xml

@@ -14,8 +14,8 @@ import {
   BarChart3
 } from "lucide-react"
 
-// Schema.org JSON-LD for SEO
-const jsonLd = {
+// Schema.org JSON-LD for SEO - Multiple schemas for comprehensive coverage
+const softwareAppSchema = {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
   "name": "Zipayo",
@@ -62,13 +62,52 @@ const jsonLd = {
   }
 }
 
+// Organization Schema for brand recognition
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Zipayo",
+  "url": "https://swifttap-app.vercel.app",
+  "logo": "https://swifttap-app.vercel.app/og-image.png",
+  "description": "Zipayo ist die moderne Zahlungsplattform für Händler. QR-Code Zahlungen, Tap to Pay und mehr.",
+  "foundingDate": "2026",
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "contactType": "customer service",
+    "email": "support@zipayo.de",
+    "availableLanguage": ["German", "English"]
+  },
+  "sameAs": []
+}
+
+// WebSite Schema for sitelinks search box
+const webSiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Zipayo",
+  "url": "https://swifttap-app.vercel.app",
+  "description": "Die moderne Zahlungsplattform für Händler",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://swifttap-app.vercel.app/search?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}
+
+// Combined JSON-LD array
+const jsonLd = [softwareAppSchema, organizationSchema, webSiteSchema]
+
 export default function Home() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      {/* Inject all Schema.org JSON-LD scripts */}
+      {jsonLd.map((schema, index) => (
+        <script
+          key={index}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        />
+      ))}
       <div className="min-h-screen bg-white">
       {/* Navigation */}
       <nav className="fixed top-0 w-full bg-white/80 backdrop-blur-md z-50 border-b">
