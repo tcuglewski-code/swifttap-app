@@ -465,6 +465,7 @@ export default function Home() {
                 <li><Link href="/impressum" className="hover:text-white">Impressum</Link></li>
                 <li><Link href="/datenschutz" className="hover:text-white">Datenschutz</Link></li>
                 <li><Link href="/agb" className="hover:text-white">AGB</Link></li>
+                <li><Link href="/avv" className="hover:text-white">AVV</Link></li>
               </ul>
             </div>
           </div>
